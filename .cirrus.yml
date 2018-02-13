@@ -1,0 +1,14 @@
+container:
+  image: golang:1.9.3
+  additional_containers:
+    - name: mysql
+      image: mysql:8
+      port: 3306
+      environment:
+        MYSQL_ROOT_PASSWORD: ""
+
+test_task:
+  environment:
+    CIRRUS_WORKING_DIR: /go/src/github.com/square/spincycle
+  get_script: go get -t -v ./...
+  test_script: go test -v ./...
